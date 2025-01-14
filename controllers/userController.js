@@ -8,7 +8,7 @@ require('dotenv').config();
 const registerUser = [
     body('name')
         .notEmpty().withMessage('Name is required')
-        .matches(/^[A-Za-z\s]+$/).withMessage('Name must contain only letters and spaces'), // Regex for letters and spaces
+        .matches(/^[A-Za-z\s]+$/).withMessage('Name must contain only letters and spaces'),
     body('email').isEmail().withMessage('Please include a valid email').normalizeEmail(),
     body('password')
         .isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
