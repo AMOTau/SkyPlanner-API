@@ -143,3 +143,6 @@ The server will run on http://localhost:3000.
 
 3. Get Activities
 - GET /api/activities
+
+## For frontend
+  https://github.com/IKcracker/SkyPlanner.git
