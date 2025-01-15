@@ -39,4 +39,4 @@ const getActivities = async (req, res) => {
     }
 }
 
-export { addActivity, addAllActivities, getActivities };
+module.exports = { addActivity, addAllActivities, getActivities };
