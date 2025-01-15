@@ -1,4 +1,4 @@
-const activity = require('../models/activities');
+const Activity = require('../models/activities');
 const addActivity = async (req, res) => {
     const { condition , activity } = req.body;
 
