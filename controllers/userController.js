@@ -8,7 +8,7 @@ require('dotenv').config();
 const registerUser = [
     body('name')
         .notEmpty().withMessage('Name is required')
-        .matches(/^[A-Za-z\s]+$/).withMessage('Name must contain only letters and spaces'), // Regex for letters and spaces
+        .matches(/^[A-Za-z\s]+$/).withMessage('Name must contain only letters and spaces'),
     body('email').isEmail().withMessage('Please include a valid email').normalizeEmail(),
     body('password')
         .isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
@@ -85,4 +85,71 @@ const loginUser = [
     }
 ];
 
-module.exports = { registerUser, loginUser };
+const addFavorite = async (req, res) => {
+    const { locationName, id } = req.body;
+
+    if (!locationName || !id) {
+        return res.status(400).json({ msg: 'Location name and ID are required' });
+    }
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        const exists = user.favourites.some(fav => fav.id === id);
+        if (exists) {
+            return res.status(400).json({ msg: 'Destination already in favorites' });
+        }
+
+        user.favourites.push({ locationName, id });
+        await user.save();
+
+        res.status(201).json({ msg: 'Favorite added', favorites: user.favourites });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+const getFavorites = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        res.status(200).json({ favorites: user.favourites });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+const deleteFavorite = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        const newFavorites = user.favourites.filter(fav => fav.id !== id);
+        if (newFavorites.length === user.favourites.length) {
+            return res.status(404).json({ msg: 'Favorite not found' });
+        }
+
+        user.favourites = newFavorites;
+        await user.save();
+
+        res.status(200).json({ msg: 'Favorite removed', favorites: user.favourites });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+module.exports = { registerUser, loginUser, addFavorite, getFavorites, deleteFavorite };
+

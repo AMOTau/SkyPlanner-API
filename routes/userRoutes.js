@@ -1,15 +1,13 @@
 const express = require('express');
-const { body } = require('express-validator');
-const { registerUser, loginUser } = require('../controllers/userController');
+const { registerUser, loginUser, addFavorite, getFavorites, deleteFavorite } = require('../controllers/userController');
+const auth = require('../middleware/auth');
 const router = express.Router();
 
-const validateRegistration = [
-    body('email').isEmail().withMessage('Enter a valid email'),
-    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-];
-
-router.post('/register', validateRegistration, registerUser);
-
+router.post('/register', registerUser);
 router.post('/login', loginUser);
+
+router.post('/favorites', auth, addFavorite);
+router.get('/favorites', auth, getFavorites);
+router.delete('/favorites/:id', auth, deleteFavorite);
 
 module.exports = router;
