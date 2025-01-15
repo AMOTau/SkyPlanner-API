@@ -145,4 +145,6 @@ The server will run on http://localhost:3000.
 - GET /api/activities
 
 ## For frontend
-  https://github.com/IKcracker/SkyPlanner.git
+  - Code: https://github.com/IKcracker/SkyPlanner.git
+  - APK: https://expo.dev/accounts/alicia02/projects/SkyPlanner/builds/893b121c-9fc6-430e-9982-ed8be64681e6
+  
