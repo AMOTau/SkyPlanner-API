@@ -1,4 +1,4 @@
-import Activity from '../models/Activity.js';
+const activity = require('../models/activities');
 const addActivity = async (req, res) => {
     const { condition , activity } = req.body;
 
