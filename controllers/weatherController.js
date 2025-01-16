@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 export const getDaysForecast = async (req, res) => {
     const { city} = req.query;
     const url = `https://api.weatherapi.com/v1/forecast.json?key=9b3693377e2f41f0b31103324251401&q=${city}&days=${5}`; 
