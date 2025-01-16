@@ -1,4 +1,4 @@
-import Activity from '../models/Activity.js';
+const Activities = require('../models/activities');
 const addActivity = async (req, res) => {
     const { condition , activity } = req.body;
 
@@ -18,7 +18,7 @@ const addActivity = async (req, res) => {
 }
 const addAllActivities = async (req, res) => {
     const activities = req.body;
-
+  
     try {
         const newActivities = await Activity.insertMany(activities);
 
@@ -39,4 +39,4 @@ const getActivities = async (req, res) => {
     }
 }
 
-export { addActivity, addAllActivities, getActivities };
+module.exports = { addActivity, addAllActivities, getActivities };
