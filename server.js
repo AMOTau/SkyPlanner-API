@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const activitiesRoutes = require('./routes/activitiesRoutes');
+const weatherRoutes = require('./routes/weatherRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -16,5 +17,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.use('/api/users', userRoutes);
 app.use('/api/activities', activitiesRoutes);
+app.use('/api/weather', weatherRoutes);
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

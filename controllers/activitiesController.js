@@ -18,7 +18,7 @@ const addActivity = async (req, res) => {
 }
 const addAllActivities = async (req, res) => {
     const activities = req.body;
-
+  
     try {
         const newActivities = await Activity.insertMany(activities);
 
@@ -40,3 +40,4 @@ const getActivities = async (req, res) => {
 }
 
 module.exports = { addActivity, addAllActivities, getActivities };
+
