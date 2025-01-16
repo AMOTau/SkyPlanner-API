@@ -1,8 +1,7 @@
 require('dotenv').config();
 
 export const getDaysForecast = async (req, res) => {
-    const { city, days } = req.query;
-    const apiKey = process.env.WEATHER_API_KEY;
+    const { city} = req.query;
     const url = `https://api.weatherapi.com/v1/forecast.json?key=9b3693377e2f41f0b31103324251401&q=${city}&days=${5}`; 
     try {
         const response = await axios.get(url); 
