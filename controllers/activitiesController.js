@@ -1,4 +1,4 @@
-const Activities = require('../models/activities');
+const Activity = require('../models/activities');
 const addActivity = async (req, res) => {
     const { condition , activity } = req.body;
 
@@ -40,3 +40,4 @@ const getActivities = async (req, res) => {
 }
 
 module.exports = { addActivity, addAllActivities, getActivities };
+
